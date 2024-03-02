@@ -36,13 +36,14 @@ def send_email(recipient, subject, body, attachment_path):
             )
             message.attach(part)
 
-    with SMTP(SMTP_SERVER, SMTP_PORT) as server:
-        server.starttls()
-        server.login(SENDER_EMAIL, SENDER_PASSWORD)
-        server.send_message(message)
+    # this is the part that sends the mails out. this is also shit code dont worry about it :)
+    print(f"Sending mail to {recipient}", end="\t")
+    server.send_message(message)
+    print("✅  Sent!")
 
 
 def main():
+    # CHANGE MAIL CONTENT HERE
     email_subject = "<Sample Subject>"
     email_body = """
     Enter email contents here
@@ -65,4 +66,8 @@ def main():
 
 
 if __name__ == "__main__":
+    server = SMTP(SMTP_SERVER, SMTP_PORT)
+    server.starttls()
+    server.login(SENDER_EMAIL, SENDER_PASSWORD)
     main()
+    server.quit()
